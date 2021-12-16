@@ -10,6 +10,9 @@ export default function Home() {
   return (
     <div>
       <h1>Burn your Ethereum</h1>
+      <form>
+        <input />
+      </form>
     </div>
   )
 }
