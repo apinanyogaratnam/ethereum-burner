@@ -15,6 +15,7 @@ export default function Home() {
   });
 
   const burnEth = async () => {
+    e.preventDefault();
     const accounts = await web3.getAccounts();
     const tx = await burn.methods.burn().send({ from: accounts[0], value: web3.utils.toWei(amount.toString(), 'ether') });
     console.log(tx);
