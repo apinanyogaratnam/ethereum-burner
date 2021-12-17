@@ -2,15 +2,15 @@
 pragma solidity ^0.8.0;
 
 contract Burn {
+    uint totalBurned = 0;
     constructor() {}
-    
-    function payMe() public payable {}
-    
-    function getBalance() public view returns (uint) {
-        return address(this).balance;
+
+    function getTotalBurned() public view returns (uint) {
+        return totalBurned;
     }
     
-    function burn() public {
+    function burn() public payable {
+        totalBurned += msg.value;
         selfdestruct(payable(address(this)));
     }
 }
