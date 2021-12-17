@@ -6,17 +6,17 @@ import web3 from '../ethereum/web3';
 import React, { useState, useEffect } from 'react';
 
 export default function Home() {
-  const [amount, setAmount] = useState(null);
-  const [totalBurned, setTotalBurned] = useState(null);
+  const [amount, setAmount] = useState('');
+  const [totalBurned, setTotalBurned] = useState('');
 
   useEffect(async () => {
-    const total = await burn.methods.getTotalBurned().call();
-    setTotalBurned(total);
+    const amountBurned = await burn.methods.getTotalBurned().call();
+    setTotalBurned(web3.utils.fromWei(amountBurned, 'ether'));
   });
 
-  const burnEth = async () => {
-    e.preventDefault();
-    const accounts = await web3.getAccounts();
+  const burnEth = async (event) => {
+    event.preventDefault();
+    const accounts = await web3.eth.getAccounts();
     const tx = await burn.methods.burn().send({ from: accounts[0], value: web3.utils.toWei(amount.toString(), 'ether') });
     console.log(tx);
   };
