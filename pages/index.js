@@ -33,6 +33,7 @@ export default function Home() {
         />
         <button onClick={burnEth}>Burn</button>
       </form>
+      change to the rinkeby network if you have not already
     </div>
   )
 }
