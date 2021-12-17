@@ -9,9 +9,13 @@ export default function Home() {
   const [amount, setAmount] = useState('');
   const [totalBurned, setTotalBurned] = useState('');
 
-  useEffect(async () => {
-    const amountBurned = await burn.methods.getTotalBurned().call();
-    setTotalBurned(web3.utils.fromWei(amountBurned, 'ether'));
+  const updateBurnedTotal = async () => {
+    const total = await burn.methods.getTotalBurned().call();
+    setTotalBurned(web3.utils.fromWei(total, 'ether'));
+  };
+
+  useEffect(() => {
+    updateBurnedTotal();
   });
 
   const burnEth = async (event) => {
@@ -19,6 +23,8 @@ export default function Home() {
     const accounts = await web3.eth.getAccounts();
     const tx = await burn.methods.burn().send({ from: accounts[0], value: web3.utils.toWei(amount.toString(), 'ether') });
     console.log(tx);
+    setAmount('');
+    updateBurnedTotal();
   };
 
   return (
